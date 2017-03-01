@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>99乘法表</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			ul{
+				overflow: hidden;
+			}
+			li{
+				list-style: none;
+			}
+			ul li{
+				width: 65px;
+				height: 35px;
+				font-size: 12px;
+				line-height: 35px;
+				text-align: center;
+				border: 1px solid blue;
+				float: left;
+				margin: 2px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap"></div>
+		<script>
+			var oWrap=document.querySelector(".wrap");
+			for (var i=1;i<10;i++) {
+				var str="<ul>";
+				for (var j=1;j<=i;j++) {
+					str +="<li>"+i+"*"+j+""+"="+(i*j)+"</li>";
+				};
+				str +="</ul>";
+				oWrap.innerHTML+=str;
+			}
+		</script>
+	</body>
+</html>
