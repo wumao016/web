@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>选框</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			a{
+				text-decoration: none;
+			}
+			a img{
+				display: block;
+				border: none;
+			}
+			li{
+				list-style: none;
+			}
+			.box,.radio{
+				width: 600px;
+				margin: 50px auto;
+			}
+			.box p,.radio p{
+				font-size: 14px;
+				font-weight: bold;
+				border-bottom: 1px solid #000;
+				line-height: 30px;
+			}
+			.box ul,.radio ul{
+				margin-top: 20px;
+				overflow: hidden;
+			}
+			.box ul li,.radio ul li{
+				width: 66px;
+				height: 20px;
+				float: left;
+				background: url(img/a_circle_gray.png) no-repeat left center;
+				font-size: 12px;
+				line-height: 20px;
+				text-indent: 30px;
+				margin-left: 10px;
+				cursor: pointer;
+			}
+			.box ul li.check{
+				background: url(img/a_circle_red.png) no-repeat left center;
+			}
+			.box ul li.on{
+				color: #FF6600;
+			}
+			.radio ul li.radiostr{
+				color:#FF0000;
+			}
+			.radio ul li.radioend{
+				background: url(img/a_circle_red.png) no-repeat left center;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<p>复选框</p>
+			<ul>
+				<li class="on">苹果</li>
+				<li>火龙果</li>
+				<li>榴莲</li>
+				<li>草莓</li>
+				<li>柠檬</li>
+			</ul>
+		</div>
+		<div class="radio">
+			<p>单选框</p>
+			<ul>
+				<li class="radiostr">苹果</li>
+				<li class="radiostr">火龙果</li>
+				<li class="radiostr">榴莲</li>
+				<li class="radiostr">草莓</li>
+				<li class="radiostr">柠檬</li>
+			</ul>
+		</div>
+		<script src="js/check.js"></script>
+	</body>
+</html>
