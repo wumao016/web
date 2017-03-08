@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>评分</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.box{
+				width: 700px;
+				height: 75px;
+				margin: 50px auto;
+			}
+			.box .txt,.box .star,.box .tip{
+				float: left;
+			}
+			.box .txt{
+				color: #f00;
+				line-height:55px;
+			}
+			.box p.star{
+				width:350px;
+				height:50px;
+			}
+			.box p.star span{
+				width:50px;
+				height:50px;
+				display: block;
+                float: left;
+                margin-left: 10px;
+                background: url(images/star.png) no-repeat;
+                background-size: cover;
+			}
+			.box p.star span.on{
+				background-position: 0px -70px;
+			}
+			.box p.tip{
+				width:200px;
+				height: 53px;
+				border: 1px solid #ddd;
+				margin-left: 10px;
+				color: #333;
+				text-align: center;
+          		line-height: 53px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<span class="txt">星级评分</span>
+		    <p class="star">
+		    	<span></span>
+		    	<span></span>
+		    	<span></span>
+		    	<span></span>
+		    	<span></span>
+		    </p>
+		    <p class="tip"></p>
+		</div>
+		<script>
+			var oTip=document.querySelector(".box .tip");
+			var aStar=document.querySelectorAll(".box .star span");
+			var oStar=document.querySelector(".box .star");
+			var tipTxt=[
+				"请认真打分",
+				"很差",
+				"较差",
+				"还行",
+				"推荐",
+				"力荐"
+				
+			];
+			var length=aStar.length;
+			var score=0;
+			oTip.innerHTML=tipTxt[score];
+			for (var i=0;i<length;i++) {
+				aStar[i].x=i;
+				aStar[i].onmouseover=function(){
+					change(this.x+1);
+				};
+				aStar[i].onclick=function(){
+					score=this.x+1;
+				} 
+			}
+			oStar.onmouseleave=function(){
+				change(score);
+			};
+			function change(num){
+				for (var i=0;i<length;i++) {
+					aStar[i].className=i>num-1?"":"on";
+					oTip.innerHTML=tipTxt[num];
+				};
+			}
+		</script>
+	</body>
+</html>
