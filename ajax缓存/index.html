@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>ajax</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			ul{
+				list-style:none;
+			}
+			.wrap{
+				border: 1px solid #ccc;
+				width: 500px;
+				height: auto;
+				margin: 0 auto;
+			}
+			.content{
+				width: 500px;
+				margin: 0 auto;
+			}
+			.items{
+				display: inline-block;
+				border-bottom:1px solid #ccc ;
+				position: relative;
+				width: 500px;
+			}
+			.img{
+				float: left;
+				width: 40px;
+				height: 40px;
+				margin: 10px;
+			}
+			.img img{
+				width: 100%;
+				height: 100%;
+			}
+			.bd{
+				float:left;
+			}
+			.label{
+				width: 250px;
+				margin-left: 30px;
+				line-height: 60px;
+				overflow: hidden; 
+				text-overflow:ellipsis; 
+				white-space: nowrap;
+				color: #333;
+			}
+			.ft{
+				float: left;
+				position: absolute;
+				right: 10px;
+				top:16px;
+			}
+			.page{
+				margin: 0 auto;
+			}
+			.row{
+				overflow: hidden;
+				display: -moz-box; 
+			    display: -webkit-box; 
+			    display: box; 
+			    width:95%; 
+			    margin: 0 auto;
+			}
+			.row li{
+				height: 65px;
+				border: 1px solid #ccc;
+				text-align: center;
+				line-height: 65px;
+				margin: 20px 5px;
+				-moz-box-flex: 1; 
+			    -webkit-box-flex: 1; 
+			    box-flex: 1;
+			    color: #000;
+			    cursor: pointer;
+			}
+			.row li:hover{
+				background: #ccc;
+			}
+		</style>
+		<script src="js/myAjax.js"></script>
+		
+	</head>
+	<body>
+		<div class="wrap">
+		    <div class="content" id="content"></div>
+		    <div class="page">
+				<ul class="row">
+					<li>1</li>
+					<li>2</li>
+					<li>3</li>
+					<li>4</li>
+					<li>5</li>
+					<li>6</li>
+				</ul>
+			</div>
+		</div>
+		<script>
+		//var oContent=document.getElementById("content");
+			var oContent=document.querySelector('.content');
+			var oPages=document.querySelectorAll('.page ul li');
+			var cache={}//创建缓存池子
+			changePage();
+			function changePage(){
+				for(let i=0;i<oPages.length;i++){
+					oPages[i].onclick=function(){
+						var page=i+1;
+						if(page in cache){
+							addDom(cache[page]);
+							console.log('加载过了');
+						}else{
+							goTo(page);
+							console.log('没加载');
+						}
+						//goTo(page);
+					}
+				}
+			}
+			goTo(1);
+			function goTo(page){
+				myAjax({
+					url:'https://route.showapi.com/181-1',
+					method:'GET',
+					data:{
+						showapi_appid:'30603',
+						showapi_sign:'98960666afeb4992ae91971d13494090',
+						num:8,
+						page:page,
+					},
+					success:function(res){
+						var result=JSON.parse(res);
+						//获取到数据数组
+						var dataList=result.showapi_res_body.newslist;
+						addDom(dataList);
+						cache[page]=dataList;
+						//console.log(dataList);
+					}
+				});
+			}
+			function addDom(dataList){
+				//var dataList=result;
+				var dataLength=dataList.length;
+				var str='';
+				for(var i=0;i<dataLength;i++){
+							//console.log(dataList[i].url)
+					str+=`<a href="${dataList[i].url}" class="items">
+						   <div class="img">
+						    	<img src="${dataList[i].picUrl}"/>
+						    </div>
+						    <div class="bd">
+						    	<p class="label">${dataList[i].title}</p>
+						    </div>
+						    <div class="ft">&gt;</div>
+						   </a>`
+						    	//console.log(str);
+				}
+				oContent.innerHTML=str;
+				
+			}
+		</script>
+	</body>
+</html>
