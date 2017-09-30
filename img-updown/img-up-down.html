@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>图片向上向下</title>
+         <style type="text/css">  
+            *{
+            	margin: 0;
+            	padding: 0;
+            }
+            .wrap{
+            	width:375px;
+            	height:500px;
+            	margin: 50px auto 0;
+            }
+            .up,.down{
+            	width: 100%;
+            	height:50px;
+            	background: #000;
+            	color: #fff;
+            	text-align: center;
+            	font-size: 16px;
+            	line-height:50px;
+            	cursor: pointer;
+            }
+            .img{
+            	height:400px;
+            	width: 100%;
+            	overflow: hidden;
+            	position: relative;
+            }
+            .move{
+            	position: absolute;
+                left:0 ;
+                top: 0;
+            }
+            .img img{
+            	width: 100%;
+            	display: block;
+            }
+        </style>  
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="up">向上</div>
+			<div class="img" onselectstart="return false">
+				<div class="move">
+					<img src="ado1.jpg"/>
+					<img src="ado2.jpg" />
+					<img src="ado3.jpg" />
+					<img src="ado4.jpg" />
+				</div>
+			</div>
+			<div class="down">向下</div>
+		</div>
+		<script>
+		window.onload=function(){
+			var up=document.querySelector(".up");
+			var down=document.querySelector(".down");
+			var move=document.querySelector(".move");
+			var img=document.querySelector('.img');
+			var timer;
+			var topmin=-parseFloat(gStyle(move,"height"))+parseFloat(gStyle(img,"height"));
+//			var topmin=-parseFloat(gStyle(move,"height"))+img.offsetHeight;
+			var topmax=0;
+			up.onmousedown=function(){
+				timer=setInterval(function(){
+					var top=parseFloat(gStyle(move,"top"))-1;
+					top=Math.max(top,topmin);
+					move.style.top=top+'px';
+				},17)
+			};
+			up.onmouseup=function(){
+				clearInterval(timer);
+			}
+			down.onmousedown=function(){
+				timer=setInterval(function(){
+					var top=parseFloat(gStyle(move,"top"))+1;
+					top=Math.min(top,topmax );
+					move.style.top=top+'px';
+				},17)
+			}
+			down.onmouseup=function(){
+				clearInterval(timer);
+			}
+			function gStyle(obj,attr){
+				return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];
+			}
+		}
+			
+		</script>
+	</body>
+</html>
